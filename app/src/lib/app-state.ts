@@ -338,7 +338,7 @@ export enum RepositorySectionTab {
 }
 
 export interface IRepositoryState {
-  readonly historyState: IHistoryState
+  readonly selection: ICommitSelection
   readonly changesState: IChangesState
   readonly compareState: ICompareState
   readonly selectedSection: RepositorySectionTab
@@ -557,19 +557,10 @@ export interface IBranchesState {
   readonly currentPullRequest: PullRequest | null
 }
 
-export interface IHistorySelection {
+export interface ICommitSelection {
   readonly sha: string | null
   readonly file: CommittedFileChange | null
-}
-
-export interface IHistoryState {
-  readonly selection: IHistorySelection
-
-  /** The ordered SHAs. */
-  readonly history: ReadonlyArray<string>
-
   readonly changedFiles: ReadonlyArray<CommittedFileChange>
-
   readonly diff: IDiff | null
 }
 
