@@ -37,6 +37,7 @@ interface ICompareSidebarProps {
   readonly localCommitSHAs: ReadonlyArray<string>
   readonly dispatcher: Dispatcher
   readonly currentBranch: Branch | null
+  readonly selectedCommitSha: string | null
   readonly isDivergingBranchBannerVisible: boolean
   readonly onRevertCommit: (commit: Commit) => void
   readonly onViewCommitOnGitHub: (sha: string) => void
@@ -49,7 +50,6 @@ interface ICompareSidebarState {
    * For all other cases, use the prop
    */
   readonly focusedBranch: Branch | null
-  readonly selectedCommit: Commit | null
 }
 
 /** If we're within this many rows from the bottom, load the next history batch. */
@@ -69,7 +69,6 @@ export class CompareSidebar extends React.Component<
 
     this.state = {
       focusedBranch: null,
-      selectedCommit: null,
     }
   }
 
@@ -217,7 +216,6 @@ export class CompareSidebar extends React.Component<
 
   private renderCommitList() {
     const { formState, commitSHAs } = this.props.compareState
-    const selectedCommit = this.state.selectedCommit
 
     let emptyListMessage: string | JSX.Element
     if (formState.kind === ComparisonView.None) {
@@ -245,7 +243,7 @@ export class CompareSidebar extends React.Component<
         gitHubRepository={this.props.repository.gitHubRepository}
         commitLookup={this.props.commitLookup}
         commitSHAs={commitSHAs}
-        selectedSHA={selectedCommit !== null ? selectedCommit.sha : null}
+        selectedSHA={this.props.selectedCommitSha}
         gitHubUsers={this.props.gitHubUsers}
         localCommitSHAs={this.props.localCommitSHAs}
         emoji={this.props.emoji}
@@ -425,8 +423,6 @@ export class CompareSidebar extends React.Component<
         this.props.repository
       )
     })
-
-    this.setState({ selectedCommit: commit })
   }
 
   private onScroll = (start: number, end: number) => {
