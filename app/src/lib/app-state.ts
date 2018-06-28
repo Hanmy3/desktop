@@ -689,6 +689,12 @@ export enum CompareActionKind {
   Branch = 'Branch',
 }
 
+export interface ICompareToBranch {
+  readonly kind: CompareActionKind.Branch
+  readonly branch: Branch
+  readonly mode: ComparisonView.Ahead | ComparisonView.Behind
+}
+
 /**
  * An action to send to the application store to update the compare state
  */
@@ -696,8 +702,4 @@ export type CompareAction =
   | {
       readonly kind: CompareActionKind.History
     }
-  | {
-      readonly kind: CompareActionKind.Branch
-      readonly branch: Branch
-      readonly mode: ComparisonView.Ahead | ComparisonView.Behind
-    }
+  | ICompareToBranch
