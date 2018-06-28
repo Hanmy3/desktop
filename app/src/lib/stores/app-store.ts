@@ -897,13 +897,15 @@ export class AppStore extends TypedBaseStore<IAppState> {
     const { ahead, behind } = compare
     const aheadBehind = { ahead, behind }
 
+    const commitSHAs = compare.commits.map(commit => commit.sha)
+
     this.updateCompareState(repository, s => ({
       formState: {
         comparisonBranch,
         kind: action.mode,
         aheadBehind,
       },
-      commitSHAs: compare.commits.map(commit => commit.sha),
+      commitSHAs,
     }))
 
     const tip = gitStore.tip
@@ -928,6 +930,8 @@ export class AppStore extends TypedBaseStore<IAppState> {
 
       this.currentAheadBehindUpdater.insert(from, to, aheadBehind)
     }
+
+    this.updateSelectedCommit(repository, commitSHAs)
 
     return this.emitUpdate()
   }
