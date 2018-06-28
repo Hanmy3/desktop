@@ -699,7 +699,7 @@ export class AppStore extends TypedBaseStore<IAppState> {
     }
 
     if (newSelection.sha == null && commits.length > 0) {
-      this._changeHistoryCommitSelection(repository, commits[0])
+      this._changeCommitSelection(repository, commits[0])
       this._loadChangedFilesForCurrentSelection(repository)
     }
 
@@ -927,7 +927,7 @@ export class AppStore extends TypedBaseStore<IAppState> {
   }
 
   /** This shouldn't be called directly. See `Dispatcher`. */
-  public async _loadNextHistoryBatch(repository: Repository): Promise<void> {
+  public async _loadNextCommitBatch(repository: Repository): Promise<void> {
     const gitStore = this.getGitStore(repository)
 
     const state = this.getRepositoryState(repository)
@@ -996,12 +996,12 @@ export class AppStore extends TypedBaseStore<IAppState> {
     this.emitUpdate()
 
     if (selectionOrFirstFile.file) {
-      this._changeHistoryFileSelection(repository, selectionOrFirstFile.file)
+      this._changeFileSelection(repository, selectionOrFirstFile.file)
     }
   }
 
   /** This shouldn't be called directly. See `Dispatcher`. */
-  public async _changeHistoryCommitSelection(
+  public async _changeCommitSelection(
     repository: Repository,
     sha: string
   ): Promise<void> {
@@ -1024,7 +1024,7 @@ export class AppStore extends TypedBaseStore<IAppState> {
   }
 
   /** This shouldn't be called directly. See `Dispatcher`. */
-  public async _changeHistoryFileSelection(
+  public async _changeFileSelection(
     repository: Repository,
     file: CommittedFileChange
   ): Promise<void> {

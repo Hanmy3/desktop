@@ -415,7 +415,7 @@ export class CompareSidebar extends React.Component<
   }
 
   private onCommitSelected = (commit: Commit) => {
-    this.props.dispatcher.changeHistoryCommitSelection(
+    this.props.dispatcher.changeCommitSelection(
       this.props.repository,
       commit.sha
     )
@@ -448,7 +448,7 @@ export class CompareSidebar extends React.Component<
       }
 
       this.loadingMoreCommitsPromise = this.props.dispatcher
-        .loadNextHistoryBatch(this.props.repository)
+        .loadNextCommitBatch(this.props.repository)
         .then(() => {
           // deferring unsetting this flag to some time _after_ the commits
           // have been appended to prevent eagerly adding more commits due

@@ -114,8 +114,8 @@ export class Dispatcher {
   }
 
   /** Load the next batch of history for the repository. */
-  public loadNextHistoryBatch(repository: Repository): Promise<void> {
-    return this.appStore._loadNextHistoryBatch(repository)
+  public loadNextCommitBatch(repository: Repository): Promise<void> {
+    return this.appStore._loadNextCommitBatch(repository)
   }
 
   /** Load the changed files for the current history selection. */
@@ -134,11 +134,11 @@ export class Dispatcher {
    *            the history list, represented as a SHA-1 hash
    *            digest. This should match exactly that of Commit.Sha
    */
-  public changeHistoryCommitSelection(
+  public changeCommitSelection(
     repository: Repository,
     sha: string
   ): Promise<void> {
-    return this.appStore._changeHistoryCommitSelection(repository, sha)
+    return this.appStore._changeCommitSelection(repository, sha)
   }
 
   /**
@@ -149,11 +149,11 @@ export class Dispatcher {
    * @param file A FileChange instance among those available in
    *            IHistoryState.changedFiles
    */
-  public changeHistoryFileSelection(
+  public changeFileSelection(
     repository: Repository,
     file: CommittedFileChange
   ): Promise<void> {
-    return this.appStore._changeHistoryFileSelection(repository, file)
+    return this.appStore._changeFileSelection(repository, file)
   }
 
   /** Set the repository filter text. */
